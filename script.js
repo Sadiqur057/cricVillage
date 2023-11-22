@@ -5,7 +5,6 @@ class Game {
         this.ballCount = 0;
         this.userPlayed = 0;
         this.compPlayed = 0;
-
         this.tossSelection = document.querySelector('#toss-selection');
         this.statusSelection = document.querySelector('#status-selection');
         this.statusSelection.style.display = "none";
@@ -15,7 +14,6 @@ class Game {
         this.playGame.style.display = "none";
         this.winnerSection = document.querySelector('#winner-section');
         this.winnerSection.style.display = "none";
-
         this.compScore = parseInt(document.querySelector('#score-comp').innerText);
         this.userScore = parseInt(document.querySelector('#score-user').innerText);
     }
