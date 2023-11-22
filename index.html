@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Cricket</title>
+</head>
+
+<body>
+    <div class="main-section">
+        <h1>CricVilla</h1>
+        <div class="score-container">
+            <div class="score-box">
+                <h4 class="label">Your Score:</h4>
+                <h4 class="value" id="score-user">0</p>
+            </div>
+            <div class="score-box">
+                <h4 class="label">Computer:</h4>
+                <h4 class="value" id="score-comp">0</p>
+            </div>
+            <!-- <div class="score-box"> 
+            <h4 class="label">RRR:</h4>
+            <h4 class="value" id="rrr">8.7</p>
+        </div>
+        <div class="score-box"> 
+            <h4 class="label">CRR:</h4>
+            <h4 class="value" id="crr">9.7</p>
+        </div> -->
+        </div>
+
+
+
+        <!-- Toss -->
+        <div class="selection-section" id="toss-selection">
+            <p class="message" id="message">Choose an option</p>
+            <div class="btn-container">
+                <button class="btn" onclick="play.toss(0)">Head</button>
+                <button class="btn" onclick="play.toss(1)">Tail</button>
+            </div>
+        </div>
+
+        <!-- choose bat/ball -->
+        <div class="selection-section" id="status-selection">
+            <p class="message" id="message-2"></p>
+            <div class="btn-container" id="btn-toss">
+                <button class="btn" onclick="play.startGame('bat')">Bat</button>
+                <button class="btn" onclick="play.startGame('ball')">Ball</button>
+            </div>
+        </div>
+
+        <!-- computer won choosen bat -->
+        <div class="selection-section" id="start-play">
+            <p class="message" id="message-3"></p>
+            <div class="btn-container" id="btn-toss">
+                <button class="btn" id="start-ball" onclick="play.startGame('ball')">Ball</button>
+                <button class="btn" id="start-bat" onclick="play.startGame('bat')">Bat</button>
+            </div>
+        </div>
+        <div class="selection-section" id="play-game">
+            <div class="message" id="bat">
+                <p>
+                    <span class="material-symbols-outlined icon">
+                        sports_cricket
+                    </span>
+                </p>
+                <div class="btn-container">
+                    <button class="btn" onclick="play.userPlay(1)">Touch</button>
+                </div>
+            </div>
+            <div class="message" id="ball">
+                <p>
+                    <span class="material-symbols-outlined icon">
+                        sports_baseball
+                    </span>
+                </p>
+                <div class="btn-container">
+                    <button class="btn" id="comp-play" onclick="play.compPlay()">Ball</button>
+                    <button class="btn" id="user-play" onclick="play.batting()">Bat now</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- GameOver -->
+        <div class="selection-section" id="winner-section">
+            <p id="winner" class="message">
+                <span class="material-symbols-outlined icon">
+                    rewarded_ads
+                </span>
+            </p>
+            <p id="looser" class="message">
+                <span class="material-symbols-outlined icon">
+                    sentiment_sad
+                </span>
+            </p>
+            <p class="message" id="winning-msg"></p>
+            <p class="message" id="loosing-msg"></p>
+        </div>
+
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
