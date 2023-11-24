@@ -1,7 +1,9 @@
 class Game {
-    ballCount = 0;
+    userBallCount = 0;
+    compBallCount = 0;
     userPlayed = 0;
     compPlayed = 0;
+    wicketCount = 0;
     constructor() {
         console.log("Game has started");
         this.userScore = parseInt(document.querySelector('#score-user').innerText)
@@ -18,6 +20,11 @@ class Game {
         this.winnerSection.style.display = "none";
         this.compScore = parseInt(document.querySelector('#score-comp').innerText);
         this.userScore = parseInt(document.querySelector('#score-user').innerText);
+        this.ballNow = document.querySelector('#ball-now');
+        this.ballNow.style.display= "none";
+        this.ballNow.style.display= "none";
+        this.batNow = document.querySelector('#bat-now');
+        this.batNow.style.display= "none";
     }
     selection(choice) {
         if (choice === "win") {
@@ -70,36 +77,58 @@ class Game {
         document.querySelector('#user-play').style.display='none';
         
     }
-    compPlay(){
-        for(let i=0;i<6;i++){
-            this.compScore += Math.floor(Math.random()*6)
+    compPlay(ball){
+        if(this.compBallCount<6){
+            let run = Math.floor(Math.random()*8)
+            if(run === 7){
+                this.wicketCount +=1; 
+                this.compScore  += 0;
+                document.querySelector('#wicket-counts').innerText= this.wicketCount;
+                this.showRun("out");
+            }else{
+                this.compScore = this.compScore + run;
+                document.querySelector('#score-comp').innerText =this.compScore;
+                this.showRun(run);
+            }
+            this.compBallCount+=ball;
+            console.log(this.compBallCount);
+            document.querySelector('#ball-counts').innerText= this.compBallCount;
         }
-        document.querySelector('#score-comp').innerText=this.compScore;
-        this.compPlayed = 1;
-        document.querySelector('#comp-play').style.display='none';
-        if(this.userPlayed===0){
-            document.querySelector('#user-play').style.display='block';
-        }else{
-            this.gameOver();
-            document.querySelector('#user-play').style.display='none';
-            document.querySelector('#comp-play').style.display='none';
+        if(this.compBallCount===6){
+            this.compPlayed=1;
+            if(this.userPlayed===0){
+                document.querySelector('#hints-ball').style.display= "none";
+                this.batNow.style.display= "block";
+            }else{
+                this.gameOver()
+            }
         }
+
     }
     userPlay(ball) {
         document.querySelector('#bat').style.display = 'block';
         document.querySelector('#ball').style.display = 'none';
-        console.log(this.ballCount);
-        if(this.ballCount<6){
-            let run = Math.floor(Math.random()*6);
-            this.userScore = this.userScore + run;
-            document.querySelector('#score-user').innerText =this.userScore;
-            console.log(this.userScore);
-            this.ballCount+=ball;
-            this.showRun(run);
-        }else if(this.ballCount===6){
+        console.log(this.userBallCount);
+        if(this.userBallCount<6){
+            let run = Math.floor(Math.random()*8);
+            if(run == 7){
+                this.wicketCount +=1; 
+                this.userScore  += 0;
+                document.querySelector('#wicket-counts').innerText= this.wicketCount;
+                this.showRun("out");
+            }else{
+                this.userScore = this.userScore + run;
+                document.querySelector('#score-user').innerText =this.userScore;
+                console.log(this.userScore);
+                this.showRun(run);
+            }
+            this.userBallCount+=ball;
+            document.querySelector('#ball-counts').innerText= this.userBallCount
+        }else if(this.userBallCount===6){
             this.userPlayed=1;
             if(this.compPlayed===0){
-                this.bowling();
+                this.ballNow.style.display= "block";
+                document.querySelector('#hints-bat').style.display= "none";
             }else{
                 this.gameOver()
             }
