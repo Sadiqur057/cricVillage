@@ -108,7 +108,7 @@ class Game {
         this.setDisplay("#toss-selection","none");
         this.setDisplay('#status-selection',"none");
         this.setDisplay('#start-play',"none");
-        this.setDisplay('#play-game',"block");
+        this.setDisplay('#play-game',"block"); 
         if (status == 'bat') {
             this.batting();
         } else {
@@ -120,12 +120,15 @@ class Game {
         this.setDisplay("#bat","block");
         this.setDisplay("#ball","none");
         this.setDisplay('#hints-bat',"block");
+        this.resetScore('#wicket-counts');
+        this.resetScore('#ball-counts');
     }
 
     bowling() {
         this.setDisplay("#bat","none");
         this.setDisplay("#ball","block");
         this.setDisplay('#hints-ball',"block"); 
+        this.resetScore('#ball-counts');
     }
 
     compPlay(ball){
