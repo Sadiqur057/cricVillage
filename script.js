@@ -1,10 +1,12 @@
 class Game {
+    ballCount = 0;
+    userPlayed = 0;
+    compPlayed = 0;
     constructor() {
         console.log("Game has started");
         this.userScore = parseInt(document.querySelector('#score-user').innerText)
-        this.ballCount = 0;
-        this.userPlayed = 0;
-        this.compPlayed = 0;
+        this.runs =  document.querySelector('#show-run');
+        this.runs.style.display = "none";
         this.tossSelection = document.querySelector('#toss-selection');
         this.statusSelection = document.querySelector('#status-selection');
         this.statusSelection.style.display = "none";
@@ -88,10 +90,12 @@ class Game {
         document.querySelector('#ball').style.display = 'none';
         console.log(this.ballCount);
         if(this.ballCount<6){
-            this.userScore = this.userScore + Math.floor(Math.random()*6)
+            let run = Math.floor(Math.random()*6);
+            this.userScore = this.userScore + run;
             document.querySelector('#score-user').innerText =this.userScore;
             console.log(this.userScore);
             this.ballCount+=ball;
+            this.showRun(run);
         }else if(this.ballCount===6){
             this.userPlayed=1;
             if(this.compPlayed===0){
@@ -100,6 +104,13 @@ class Game {
                 this.gameOver()
             }
         }
+    }
+    showRun(run){
+        this.runs.style.display = "block";
+        document.querySelector('#run').innerText = run;
+        setTimeout(()=>{
+            this.runs.style.display = "none";
+        },3000)
     }
     gameOver(){
         this.playGame.style.display = "none";
