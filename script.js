@@ -27,17 +27,6 @@ class Game {
         console.log("Game has started");
         this.initializeGame();
     }
-    resetScore(selector) {
-        let element = document.querySelector(selector);
-        if (element) {
-            return element.innerText = 0;
-        }
-    }
-    updateRecords(){
-        document.querySelector('#won').innerText=this.won;
-        document.querySelector('#lost').innerText=this.lost;
-        document.querySelector('#tie').innerText=this.tie;
-    }
     initializeGame() {
         // Initializing Game stats related properties
         this.won = parseInt(localStorage.getItem('won')) || 0;
@@ -71,6 +60,18 @@ class Game {
         document.querySelector(selector).style.display = displayType;
     }
 
+    resetScore(selector) {
+        let element = document.querySelector(selector);
+        if (element) {
+            return element.innerText = 0;
+        }
+    }
+    updateRecords(){
+        document.querySelector('#won').innerText=this.won;
+        document.querySelector('#lost').innerText=this.lost;
+        document.querySelector('#tie').innerText=this.tie;
+    }
+    
     selection(choice) {
         if (choice === "win") {
             document.querySelector('#message-2').innerText = 'You have won the toss';
@@ -93,6 +94,7 @@ class Game {
             this.setDisplay('#start-play',"block");
         }
     }
+
     toss(choice) {
         let winningChoice = Math.floor(Math.random() * 2)
         if (winningChoice == choice) {
@@ -119,12 +121,13 @@ class Game {
         this.setDisplay("#ball","none");
         this.setDisplay('#hints-bat',"block");
     }
+
     bowling() {
         this.setDisplay("#bat","none");
         this.setDisplay("#ball","block");
-        this.setDisplay('#hints-ball',"block");
-        
+        this.setDisplay('#hints-ball',"block"); 
     }
+
     compPlay(ball){
         this.compBallCount = parseInt(this.compBallCount);
         this.setDisplay('#hints-ball',"block");
@@ -157,6 +160,7 @@ class Game {
         }
 
     }
+
     userPlay(ball) {
         this.setDisplay('#ball',"none");
         this.setDisplay('#bat',"block");
@@ -191,13 +195,15 @@ class Game {
             }
         }
     }
+
     showRun(run){
         this.setDisplay("#show-run","block");
         document.querySelector('#run').innerText = run;
         setTimeout(()=>{
             this.setDisplay("#show-run","none");
-        },30000)
+        },1000)
     }
+
     gameOver(){
         this.setDisplay('#play-game',"none");
         this.setDisplay('#winner-section',"block");
