@@ -93,3 +93,18 @@ p{
 .icon-2{
     transform: scale(2);
 }
+
+.show-run{
+    width: 50px;
+    height: 50px;
+    border: 1px solid  rgb(2, 76, 133);
+    color: rgb(2, 76, 133);
+    padding: 5px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 10;
+    bottom: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+}
