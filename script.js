@@ -1,70 +1,96 @@
 class Game {
+    // Game stats related properties
     userBallCount;
     compBallCount;
     userPlayed;
     compPlayed;
     wicketCount;
     userScore;
+    compScore;
+
+     // DOM-related properties
     runs;
     tossSelection;
     statusSelection;
     startPlay;
     playGame;
-    compScore;
     winnerSection;
     ballNow;
     batNow;
 
+    // Records showing at the ends
+    won;
+    lost;
+    tie;
+
     constructor() {
         console.log("Game has started");
-        this.userScore = this.getScore('#score-user');
-        this.compScore = this.getScore('#score-comp');
-        this.runs = document.querySelector('#show-run');
-        this.tossSelection = document.querySelector('#toss-selection');
-        this.statusSelection = document.querySelector('#status-selection');
-        this.startPlay = document.querySelector('#start-play');
-        this.playGame = document.querySelector('#play-game');
-        this.winnerSection = document.querySelector('#winner-section');
-        this.ballNow = document.querySelector('#ball-now');
-        this.batNow = document.querySelector('#bat-now');
+        this.initializeGame();
     }
-
+    resetScore(selector) {
+        let element = document.querySelector(selector);
+        if (element) {
+            return element.innerText = 0;
+        }
+    }
+    updateRecords(){
+        document.querySelector('#won').innerText=this.won;
+        document.querySelector('#lost').innerText=this.lost;
+        document.querySelector('#tie').innerText=this.tie;
+    }
     initializeGame() {
-        this.userBallCount = 0;
-        this.compBallCount = 0;
+        // Initializing Game stats related properties
+        this.won = parseInt(localStorage.getItem('won')) || 0;
+        this.lost = parseInt(localStorage.getItem('lost')) || 0;
+        this.tie = parseInt(localStorage.getItem('tie')) || 0;
+        this.updateRecords();
+
         this.userPlayed = 0;
         this.compPlayed = 0;
-        this.wicketCount = 0;
-        this.runs.style.display = "none";
-        this.statusSelection.style.display = "none";
-        this.startPlay.style.display = "none";
-        this.playGame.style.display = "none";
-        this.winnerSection.style.display = "none";
-        this.ballNow.style.display = "none";
-        this.ballNow.style.display = "none";
-        this.batNow.style.display = "none";
+        this.userScore = this.resetScore('#score-user');
+        this.compScore = this.resetScore('#score-comp');
+        this.userBallCount = this.resetScore('#ball-counts');
+        this.compBallCount = this.resetScore('#ball-counts');
+        this.wicketCount = this.resetScore('#wicket-counts');
+
+        // Set initial display states
+        this.setDisplay("#toss-selection","block");
+        this.setDisplay("#show-run","none");
+        this.setDisplay('#status-selection',"none");
+        this.setDisplay('#start-play',"none");
+        this.setDisplay('#play-game',"none");
+        this.setDisplay('#winner-section',"none");
+        this.setDisplay('#ball-now',"none");
+        this.setDisplay('#bat-now',"none");
+        
+        // Reset scores
+        this.resetScore();
     }
-    getScore(selector) {
-        return parseInt(document.querySelector(selector).innerText);
+
+    setDisplay(selector, displayType) {
+        document.querySelector(selector).style.display = displayType;
     }
 
     selection(choice) {
         if (choice === "win") {
             document.querySelector('#message-2').innerText = 'You have won the toss';
-            this.statusSelection.style.display = "block";
-            this.tossSelection.style.display = "none";
+
+            this.setDisplay("#toss-selection","none");
+            this.setDisplay('#status-selection',"block");
         } else {
             let selectionChoice = Math.floor(Math.random() * 2);
             if (selectionChoice === 1) {
                 document.querySelector('#message-3').innerText = 'Computer has won the toss and selected to bat';
+                document.querySelector('#start-ball').style.display='block';
                 document.querySelector('#start-bat').style.display='none';
             } else {
                 document.querySelector('#message-3').innerText = 'Computer has won the toss and selected to ball'
+                document.querySelector('#start-bat').style.display='block';
                 document.querySelector('#start-ball').style.display='none';
             }
-            this.statusSelection.style.display = "none";
-            this.tossSelection.style.display = "none";
-            this.startPlay.style.display = "block";
+            this.setDisplay("#toss-selection","none");
+            this.setDisplay('#status-selection',"none");
+            this.setDisplay('#start-play',"block");
         }
     }
     toss(choice) {
@@ -77,10 +103,10 @@ class Game {
     }
 
     startGame(status) {
-        this.statusSelection.style.display = "none";
-        this.tossSelection.style.display = "none";
-        this.startPlay.style.display = "none";
-        this.playGame.style.display = "block";
+        this.setDisplay("#toss-selection","none");
+        this.setDisplay('#status-selection',"none");
+        this.setDisplay('#start-play',"none");
+        this.setDisplay('#play-game',"block");
         if (status == 'bat') {
             this.batting();
         } else {
@@ -89,15 +115,19 @@ class Game {
     }
 
     batting() {
-        document.querySelector('#bat').style.display = 'block';
-        document.querySelector('#ball').style.display = 'none';
+        this.setDisplay("#bat","block");
+        this.setDisplay("#ball","none");
+        this.setDisplay('#hints-bat',"block");
     }
     bowling() {
-        document.querySelector('#ball').style.display = 'block';
-        document.querySelector('#bat').style.display = "none";
+        this.setDisplay("#bat","none");
+        this.setDisplay("#ball","block");
+        this.setDisplay('#hints-ball',"block");
         
     }
     compPlay(ball){
+        this.compBallCount = parseInt(this.compBallCount);
+        this.setDisplay('#hints-ball',"block");
         if(this.compBallCount<6){
             let run = Math.floor(Math.random()*8)
             if(run === 7){
@@ -111,7 +141,6 @@ class Game {
                 this.showRun(run);
             }
             this.compBallCount+=ball;
-            console.log(this.compBallCount);
             document.querySelector('#ball-counts').innerText= this.compBallCount;
         }
         if(this.userScore<this.compScore && this.userPlayed===1){
@@ -120,8 +149,8 @@ class Game {
         if(this.compBallCount===6){
             this.compPlayed=1;
             if(this.userPlayed===0){
-                document.querySelector('#hints-ball').style.display= "none";
-                this.batNow.style.display= "block";
+                this.setDisplay('#hints-ball',"none");
+                this.setDisplay('#bat-now',"block");
             }else{
                 this.gameOver()
             }
@@ -129,9 +158,11 @@ class Game {
 
     }
     userPlay(ball) {
-        document.querySelector('#bat').style.display = 'block';
-        document.querySelector('#ball').style.display = 'none';
-        console.log(this.userBallCount);
+        this.setDisplay('#ball',"none");
+        this.setDisplay('#bat',"block");
+        this.setDisplay('#hints-bat',"block");
+        this.userBallCount = parseInt(this.userBallCount);
+
         if(this.userBallCount<6){
             let run = Math.floor(Math.random()*8);
             if(run == 7){
@@ -142,7 +173,6 @@ class Game {
             }else{
                 this.userScore = this.userScore + run;
                 document.querySelector('#score-user').innerText =this.userScore;
-                console.log(this.userScore);
                 this.showRun(run);
             }
             this.userBallCount+=ball;
@@ -154,23 +184,23 @@ class Game {
         if(this.userBallCount===6){
             this.userPlayed=1;
             if(this.compPlayed===0){
-                this.ballNow.style.display= "block";
-                document.querySelector('#hints-bat').style.display= "none";
+                this.setDisplay('#ball-now',"block");
+                this.setDisplay('#hints-bat',"none");
             }else{
                 this.gameOver()
             }
         }
     }
     showRun(run){
-        this.runs.style.display = "block";
+        this.setDisplay("#show-run","block");
         document.querySelector('#run').innerText = run;
         setTimeout(()=>{
-            this.runs.style.display = "none";
-        },3000)
+            this.setDisplay("#show-run","none");
+        },30000)
     }
     gameOver(){
-        this.playGame.style.display = "none";
-        this.winnerSection.style.display = "block";
+        this.setDisplay('#play-game',"none");
+        this.setDisplay('#winner-section',"block");
         
         const looserMsgContainer = document.querySelector('#looser');
         const winnerMsgContainer = document.querySelector('#winner');
@@ -182,19 +212,32 @@ class Game {
         
         if (this.compScore < this.userScore) {
             this.displayWinnerMsg('Congratulations! You have won the game', winnerMsgContainer);
+            this.won +=1;
+            localStorage.setItem('won', this.won);
+            this.updateRecords()
         } else if (this.compScore > this.userScore) {
             this.displayWinnerMsg('You lost the game! Better luck next time.', looserMsgContainer);
+            this.lost +=1;
+            localStorage.setItem('lost', this.lost);
+            this.updateRecords()
         } else {
-            drawMsg.innerText = 'It\'s a tie! You fought well.';
-            drawMsgContainer.style.display = 'block';
+            this.displayWinnerMsg('It\'s a tie! You fought well.', drawMsgContainer);
+            this.tie +=1;
+            localStorage.setItem('tie', this.tie);
+            this.updateRecords()
         }
     }
     displayWinnerMsg(msg, element) {
         document.querySelector('#match-end-msg').innerText = msg;
         element.style.display = 'block';
     }
+
+    resetGame(){
+        localStorage.clear();
+        this.initializeGame();
+        
+    }
 }
 let play = new Game();
-play.initializeGame();
 
 

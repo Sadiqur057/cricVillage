@@ -38,22 +38,23 @@
 
         <!-- Toss -->
         <div class="selection-section" id="toss-selection">
-            <p class="message" id="message">Choose an option</p>
+            <p class="message margin-X" id="message">Choose an option</p>
             <div class="btn-container">
                 <button class="btn" onclick="play.toss(0)">Head</button>
                 <button class="btn" onclick="play.toss(1)">Tail</button>
             </div>
         </div>
-        <!-- choose bat/ball -->
+
+        <!-- User won toss: choose bat/ball -->
         <div class="selection-section" id="status-selection">
-            <p class="message" id="message-2"></p>
+            <p class="message margin-X" id="message-2"></p>
             <div class="btn-container" id="btn-toss">
                 <button class="btn" onclick="play.startGame('bat')">Bat</button>
                 <button class="btn" onclick="play.startGame('ball')">Ball</button>
             </div>
         </div>
 
-        <!-- computer won choosen bat -->
+        <!-- computer won toss -->
         <div class="selection-section" id="start-play">
             <p class="message" id="message-3"></p>
             <div class="btn-container" id="btn-toss">
@@ -61,6 +62,8 @@
                 <button class="btn" id="start-bat" onclick="play.startGame('bat')">Bat</button>
             </div>
         </div>
+
+        <!-- starts play game -->
         <div class="selection-section" id="play-game">
             <div class="message" id="bat">
 
@@ -109,14 +112,38 @@
                 </span>
             </p>
             <p id="draw" class="message">
-                <span class="material-symbols-outlined">
+                <span class="material-symbols-outlined icon">
                     sports_score
                 </span>
             </p>
             <p class="message" id="match-end-msg"></p>
         </div>
+
+        <!-- show run each ball -->
         <div class="show-run" id="show-run">
             <h1 id="run"></h1>
+        </div>
+
+        <!-- Score records -->
+
+        <div class="score-container">
+            <div class="score-box">
+                <h4 class="label">Won:</h4>
+                <h4 class="value" id="won"></h4>
+            </div>
+            <div class="score-box">
+                <h4 class="label">Lost:</h4>
+                <h4 class="value" id="lost"></h4>
+            </div>
+            <div class="score-box">
+                <h4 class="label">Draw:</h4>
+                <h4 class="value" id="tie"></h4>
+            </div>
+
+        </div>
+        <div class="btn-container">
+            <button class="btn" onclick="play.resetGame()">Reset</button>
+            <button class="btn" onclick="play.initializeGame()">Restart</button>
         </div>
 
     </div>

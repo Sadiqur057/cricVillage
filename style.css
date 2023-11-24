@@ -11,10 +11,10 @@ html{
     background-color: aliceblue;
 }
 .main-section{
-    height: 400px;
+    height: 460px;
     width: 320px;
     margin: 100px auto;
-    padding: 40px;
+    padding: 40px 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); 
@@ -22,7 +22,6 @@ html{
 }
 h1{
     text-align: center;
-    margin-bottom: 10px;
 }
 p{
     text-align: center;
@@ -34,13 +33,15 @@ p{
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    height: 77px;
-    margin-bottom: 35px;
+    max-height: 77px;
+    padding: 10px;
 }
 .score-box{
     display: flex;
     margin: 5px;
     height: 10px;
+    padding: 10px 0;
+    align-items: center;
 }
 .score-box .label{
     margin-right: 4px;
@@ -63,14 +64,15 @@ p{
 }
 .btn-container{
     display: flex;
-    margin: 15px;
+    margin: 5px;
     justify-content: space-evenly;
+    align-items: center;
 }
 .btn-container .btn{
     height: 30px;
     width: 64px;
-    padding: 5px 10px;
-    margin: 10px ;
+    padding: 5px ;
+    margin: 5px ;
     background-color: white;
     border-radius: 10px;
     border: 1px solid  rgb(2, 76, 133);
@@ -83,6 +85,10 @@ p{
 }
 .message{
     text-align: center;
+    
+}
+.margin-X{
+    margin: 7px 0;
 }
 .display-none{
     display: none;
@@ -107,21 +113,22 @@ p{
 .show-run{
     font-size: 12px;
     width: 70px;
-    height: 40px;
+    height: 35px;
     border: 1px solid  rgb(2, 76, 133);
     color: rgb(2, 76, 133);
-    padding: 5px;
+    padding: 2px;
     border-radius: 10px;
-    position: relative;
+    position: absolute;
     z-index: 10;
-    bottom: 170px;
+    top: 250px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #fff;
 }
 .text-hints{
     border: 1px solid  rgba(2, 76, 133, 0.112);
-    padding: 5px 10px;
+    padding: 10px;
+    margin: 15px;
     border-radius: 10px;
     font-size: 12px;
 }
