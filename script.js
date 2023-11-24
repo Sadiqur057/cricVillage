@@ -1,31 +1,53 @@
 class Game {
-    userBallCount = 0;
-    compBallCount = 0;
-    userPlayed = 0;
-    compPlayed = 0;
-    wicketCount = 0;
+    userBallCount;
+    compBallCount;
+    userPlayed;
+    compPlayed;
+    wicketCount;
+    userScore;
+    runs;
+    tossSelection;
+    statusSelection;
+    startPlay;
+    playGame;
+    compScore;
+    winnerSection;
+    ballNow;
+    batNow;
+
     constructor() {
         console.log("Game has started");
-        this.userScore = parseInt(document.querySelector('#score-user').innerText)
-        this.runs =  document.querySelector('#show-run');
-        this.runs.style.display = "none";
+        this.userScore = this.getScore('#score-user');
+        this.compScore = this.getScore('#score-comp');
+        this.runs = document.querySelector('#show-run');
         this.tossSelection = document.querySelector('#toss-selection');
         this.statusSelection = document.querySelector('#status-selection');
-        this.statusSelection.style.display = "none";
         this.startPlay = document.querySelector('#start-play');
-        this.startPlay.style.display = "none";
         this.playGame = document.querySelector('#play-game');
-        this.playGame.style.display = "none";
         this.winnerSection = document.querySelector('#winner-section');
-        this.winnerSection.style.display = "none";
-        this.compScore = parseInt(document.querySelector('#score-comp').innerText);
-        this.userScore = parseInt(document.querySelector('#score-user').innerText);
         this.ballNow = document.querySelector('#ball-now');
-        this.ballNow.style.display= "none";
-        this.ballNow.style.display= "none";
         this.batNow = document.querySelector('#bat-now');
-        this.batNow.style.display= "none";
     }
+
+    initializeGame() {
+        this.userBallCount = 0;
+        this.compBallCount = 0;
+        this.userPlayed = 0;
+        this.compPlayed = 0;
+        this.wicketCount = 0;
+        this.runs.style.display = "none";
+        this.statusSelection.style.display = "none";
+        this.startPlay.style.display = "none";
+        this.playGame.style.display = "none";
+        this.winnerSection.style.display = "none";
+        this.ballNow.style.display = "none";
+        this.ballNow.style.display = "none";
+        this.batNow.style.display = "none";
+    }
+    getScore(selector) {
+        return parseInt(document.querySelector(selector).innerText);
+    }
+
     selection(choice) {
         if (choice === "win") {
             document.querySelector('#message-2').innerText = 'You have won the toss';
@@ -73,8 +95,6 @@ class Game {
     bowling() {
         document.querySelector('#ball').style.display = 'block';
         document.querySelector('#bat').style.display = "none";
-        // document.querySelector('#comp-play').style.display='block';
-        // document.querySelector('#user-play').style.display='none';
         
     }
     compPlay(ball){
@@ -151,22 +171,30 @@ class Game {
     gameOver(){
         this.playGame.style.display = "none";
         this.winnerSection.style.display = "block";
-        document.querySelector('#looser').style.display ='none';
-        document.querySelector('#winner').style.display ='none';
-        document.querySelector('#draw').style.display ='none';
-        console.log("gameOver");
-        if(this.compScore<this.userScore){
-            document.querySelector('#winning-msg').innerText = 'Congratulations! You have won the game';
-            document.querySelector('#winner').style.display ='block';
-        }else if(this.compScore>this.userScore){
-            document.querySelector('#winning-msg').innerText = 'You lost the game! Better luck next time.';
-            document.querySelector('#looser').style.display ='block';
-        }else{
-            document.querySelector('#draw').innerText = 'It\'s a tie! You fought well.';
-            document.querySelector('#winner').style.display ='block';
+        
+        const looserMsgContainer = document.querySelector('#looser');
+        const winnerMsgContainer = document.querySelector('#winner');
+        const drawMsgContainer = document.querySelector('#draw');
+
+        looserMsgContainer.style.display = 'none';
+        winnerMsgContainer.style.display = 'none';
+        drawMsgContainer.style.display = 'none';
+        
+        if (this.compScore < this.userScore) {
+            this.displayWinnerMsg('Congratulations! You have won the game', winnerMsgContainer);
+        } else if (this.compScore > this.userScore) {
+            this.displayWinnerMsg('You lost the game! Better luck next time.', looserMsgContainer);
+        } else {
+            drawMsg.innerText = 'It\'s a tie! You fought well.';
+            drawMsgContainer.style.display = 'block';
         }
+    }
+    displayWinnerMsg(msg, element) {
+        document.querySelector('#match-end-msg').innerText = msg;
+        element.style.display = 'block';
     }
 }
 let play = new Game();
+play.initializeGame();
 
 
