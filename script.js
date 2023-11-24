@@ -73,11 +73,14 @@ class Game {
     bowling() {
         document.querySelector('#ball').style.display = 'block';
         document.querySelector('#bat').style.display = "none";
-        document.querySelector('#comp-play').style.display='block';
-        document.querySelector('#user-play').style.display='none';
+        // document.querySelector('#comp-play').style.display='block';
+        // document.querySelector('#user-play').style.display='none';
         
     }
     compPlay(ball){
+        if(this.userScore<this.compScore && this.userPlayed===1){
+            this.gameOver();
+        }
         if(this.compBallCount<6){
             let run = Math.floor(Math.random()*8)
             if(run === 7){
@@ -109,6 +112,9 @@ class Game {
         document.querySelector('#bat').style.display = 'block';
         document.querySelector('#ball').style.display = 'none';
         console.log(this.userBallCount);
+        if(this.compScore<this.userScore && this.compPlayed===1){
+            this.gameOver();
+        }
         if(this.userBallCount<6){
             let run = Math.floor(Math.random()*8);
             if(run == 7){
@@ -124,7 +130,8 @@ class Game {
             }
             this.userBallCount+=ball;
             document.querySelector('#ball-counts').innerText= this.userBallCount
-        }else if(this.userBallCount===6){
+        }
+        if(this.userBallCount===6){
             this.userPlayed=1;
             if(this.compPlayed===0){
                 this.ballNow.style.display= "block";
@@ -146,6 +153,7 @@ class Game {
         this.winnerSection.style.display = "block";
         document.querySelector('#looser').style.display ='none';
         document.querySelector('#winner').style.display ='none';
+        document.querySelector('#draw').style.display ='none';
         console.log("gameOver");
         if(this.compScore<this.userScore){
             document.querySelector('#winning-msg').innerText = 'Congratulations! You have won the game';
@@ -153,6 +161,9 @@ class Game {
         }else if(this.compScore>this.userScore){
             document.querySelector('#winning-msg').innerText = 'You lost the game! Better luck next time.';
             document.querySelector('#looser').style.display ='block';
+        }else{
+            document.querySelector('#winning-msg').innerText = 'It\'s a tie! You fought well.';
+            document.querySelector('#winner').style.display ='block';
         }
     }
 }
