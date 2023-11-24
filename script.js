@@ -78,9 +78,6 @@ class Game {
         
     }
     compPlay(ball){
-        if(this.userScore<this.compScore && this.userPlayed===1){
-            this.gameOver();
-        }
         if(this.compBallCount<6){
             let run = Math.floor(Math.random()*8)
             if(run === 7){
@@ -97,6 +94,9 @@ class Game {
             console.log(this.compBallCount);
             document.querySelector('#ball-counts').innerText= this.compBallCount;
         }
+        if(this.userScore<this.compScore && this.userPlayed===1){
+            this.gameOver();
+        }
         if(this.compBallCount===6){
             this.compPlayed=1;
             if(this.userPlayed===0){
@@ -112,9 +112,6 @@ class Game {
         document.querySelector('#bat').style.display = 'block';
         document.querySelector('#ball').style.display = 'none';
         console.log(this.userBallCount);
-        if(this.compScore<this.userScore && this.compPlayed===1){
-            this.gameOver();
-        }
         if(this.userBallCount<6){
             let run = Math.floor(Math.random()*8);
             if(run == 7){
@@ -130,6 +127,9 @@ class Game {
             }
             this.userBallCount+=ball;
             document.querySelector('#ball-counts').innerText= this.userBallCount
+        }
+        if(this.compScore<this.userScore && this.compPlayed===1){
+            this.gameOver();
         }
         if(this.userBallCount===6){
             this.userPlayed=1;
@@ -162,7 +162,7 @@ class Game {
             document.querySelector('#winning-msg').innerText = 'You lost the game! Better luck next time.';
             document.querySelector('#looser').style.display ='block';
         }else{
-            document.querySelector('#winning-msg').innerText = 'It\'s a tie! You fought well.';
+            document.querySelector('#draw').innerText = 'It\'s a tie! You fought well.';
             document.querySelector('#winner').style.display ='block';
         }
     }
