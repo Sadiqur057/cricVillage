@@ -32,14 +32,6 @@
                 <h4 class="label">Ball:</h4>
                 <h4 class="value" id="ball-counts">0</h4>
             </div>
-            <!-- <div class="score-box"> 
-            <h4 class="label">RRR:</h4>
-            <h4 class="value" id="rrr">8.7</p>
-        </div>
-        <div class="score-box"> 
-            <h4 class="label">CRR:</h4>
-            <h4 class="value" id="crr">9.7</p>
-        </div> -->
         </div>
 
 
@@ -71,29 +63,35 @@
         </div>
         <div class="selection-section" id="play-game">
             <div class="message" id="bat">
-                <a href="#" onclick="play.userPlay(1)"">
-                    <p>
-                        <span class="material-symbols-outlined icon">
-                            sports_cricket
-                        </span>
-                    </p>
-                </a>
+
+                <p>
+                    <a href="#" onclick="play.userPlay(1)"></a>
+                    <span class="material-symbols-outlined icon">
+                        sports_cricket
+                    </span>
+                    </a>
+                </p>
+
                 <div class="btn-container">
                     <p class="text-hints" id="hints-bat">Click on bat for batting</p>
-                    <a href="#" id="ball-now" onclick="play.bowling()"><p class="text-hints btn-hints">Ball Now</p></a>
+                    <a href="#" id="ball-now" onclick="play.bowling()">
+                        <p class="text-hints btn-hints">Ball Now</p>
+                    </a>
                 </div>
             </div>
             <div class="message" id="ball">
-                <a href="#" onclick="play.compPlay(1)">
-                    <p>
+                <p>
+                    <a href="#" onclick="play.compPlay(1)">
                         <span class="material-symbols-outlined icon">
                             sports_baseball
                         </span>
-                    </p>
-                </a>
+                    </a>
+                </p>
                 <div class="btn-container">
                     <p class="text-hints" id="hints-ball">Click on ball for bowling</p>
-                    <a href="#" id="bat-now" onclick="play.batting()"><p class="text-hints btn-hints">Bat Now</p></a>
+                    <a href="#" id="bat-now" onclick="play.batting()">
+                        <p class="text-hints btn-hints">Bat Now</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -115,8 +113,7 @@
                     sports_score
                 </span>
             </p>
-            <p class="message" id="winning-msg"></p>
-            <p class="message" id="loosing-msg"></p>
+            <p class="message" id="match-end-msg"></p>
         </div>
         <div class="show-run" id="show-run">
             <h1 id="run"></h1>
