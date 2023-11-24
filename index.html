@@ -93,7 +93,7 @@
                 </a>
                 <div class="btn-container">
                     <p class="text-hints" id="hints-ball">Click on ball for bowling</p>
-                    <a href="#" id="bat-now"><p class="text-hints btn-hints">Bat Now</p></a>
+                    <a href="#" id="bat-now" onclick="play.batting()"><p class="text-hints btn-hints">Bat Now</p></a>
                 </div>
             </div>
         </div>
@@ -108,6 +108,11 @@
             <p id="looser" class="message">
                 <span class="material-symbols-outlined icon">
                     sentiment_sad
+                </span>
+            </p>
+            <p id="draw" class="message">
+                <span class="material-symbols-outlined">
+                    sports_score
                 </span>
             </p>
             <p class="message" id="winning-msg"></p>
